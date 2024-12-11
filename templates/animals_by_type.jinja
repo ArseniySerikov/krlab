@@ -1,0 +1,22 @@
+
+{% extends "base.jinja" %}
+{% block content %}
+<h1>{{ title }}</h1>
+<table>
+    <tr>
+        <th>Ім'я</th>
+        <th>Порода</th>
+        <th>Вік</th>
+    </tr>
+    {% for animal in animals if animal.type == animal_type %}
+    <tr>
+        <td>{{ animal.name }}</td>
+        <td>{{ animal.breed }}</td>
+        <td>{{ animal.age }}</td>
+    </tr>
+    {% endfor %}
+    {% if not (animals | selectattr('type', 'equalto', animal_type) | list) %}
+    <tr><td colspan="3">Тварин цього виду не знайдено.</td></tr>
+    {% endif %}
+</table>
+{% endblock %}

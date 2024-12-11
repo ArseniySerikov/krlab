@@ -1,0 +1,12 @@
+
+{% extends 'base.jinja' %}
+{% block content %}
+<h1>{{ title }}</h1>
+{% set cats = animals | selectattr('type', 'equalto', 'кіт') | list %}
+{% if cats %}
+    {% set oldest = cats | max(attribute='age') %}
+    <p>Найстаріший кіт: {{ oldest.name }} ({{ oldest.breed }}), вік: {{ oldest.age }}</p>
+{% else %}
+    <p>Котів не знайдено.</p>
+{% endif %}
+{% endblock %}

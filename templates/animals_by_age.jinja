@@ -1,0 +1,13 @@
+
+{% extends 'base.jinja' %}
+{% block content %}
+<h1>{{ title }}</h1>
+<ul>
+    {% for animal in animals if animal.age <= max_age %}
+    <li>{{ animal.name }} ({{ animal.breed }}), вік: {{ animal.age }}</li>
+    {% endfor %}
+    {% if not (animals | selectattr('age', 'le', max_age) | list) %}
+    <p>Тварин відповідного віку не знайдено.</p>
+    {% endif %}
+</ul>
+{% endblock %}

@@ -1,0 +1,24 @@
+
+{% extends "base.jinja" %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="POST" class="mb-4">
+    <div class="mb-3">
+        <label for="choice" class="form-label">Ваш вибір</label>
+        <select name="choice" id="choice" class="form-select">
+            {% for option in options %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Грати</button>
+</form>
+
+{% if result %}
+<div class="alert alert-info">
+    <p><strong>Результат:</strong> {{ result }}</p>
+    <p>Ваш вибір: <strong>{{ user_choice }}</strong></p>
+    <p>Вибір комп'ютера: <strong>{{ computer_choice }}</strong></p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,48 @@
+
+{% extends "base.jinja" %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="POST" class="form-inline mb-4">
+    <div class="mb-3">
+        <label for="type" class="form-label">Вид</label>
+        <select name="type" id="type" class="form-select">
+            <option value="">Всі</option>
+            {% for animal in animals | unique(attribute='type') %}
+            <option value="{{ animal.type }}">{{ animal.type }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="age" class="form-label">Максимальний вік</label>
+        <input type="text" name="age" id="age" class="form-control" placeholder="Введіть вік">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Напрямок</label><br>
+        <input type="radio" id="oldest" name="direction" value="Oldest" checked>
+        <label for="oldest">Найстаріший</label><br>
+        <input type="radio" id="youngest" name="direction" value="Youngest">
+        <label for="youngest">Наймолодший</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Фільтрувати</button>
+</form>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+{% if filtered %}
+<h2>Результати</h2>
+<table class="table table-striped">
+    <thead>
+        <tr><th>Вид</th><th>Ім'я</th><th>Вік</th><th>Порода</th></tr>
+    </thead>
+    <tbody>
+        {% for animal in filtered %}
+        <tr>
+            <td>{{ animal.type }}</td><td>{{ animal.name }}</td><td>{{ animal.age }}</td><td>{{ animal.breed }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
